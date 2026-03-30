@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Приглашение</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Georgia', serif;
+    background: #FFFCF6;
+    overflow-x: hidden;
+}
+
+/* ===== ПЕРВЫЙ ЭКРАН ===== */
+#intro {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 1000;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+#intro video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.intro-text {
+    position: relative;
+    text-align: center;
+    font-size: 50px;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: 1.2s;
+}
+
+/* ===== СЕКЦИИ ===== */
+.section {
+    padding: 80px 20px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 1s;
+}
+
+.section.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section img {
+    max-width: 100%;
+    border-radius: 20px;
+}
+
+/* ===== ГАЛЕРЕЯ ===== */
+.gallery {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 20px;
+}
+
+.gallery img {
+    width: 80%;
+    border-radius: 20px;
+}
+
+/* ===== ТАЙМЕР ===== */
+.timer {
+    font-size: 30px;
+    margin-top: 20px;
+}
+
+/* ===== АНКЕТА ===== */
+form {
+    max-width: 400px;
+    margin: auto;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background: #2f4f6f;
+    color: white;
+    border: none;
+}
+
+/* ===== TELEGRAM ===== */
+.telegram-btn {
+    margin-top: 30px;
+    padding: 15px;
+    display: inline-block;
+    background: #2f4f6f;
+    color: white;
+    border-radius: 30px;
+    text-decoration: none;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1);}
+    50% { transform: scale(1.05);}
+    100% { transform: scale(1);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== ВИДЕО ===== -->
+<div id="intro">
+    <video autoplay muted loop>
+        <source src="https://cdn.coverr.co/videos/coverr-flowing-silk-9713/1080p.mp4" type="video/mp4">
+    </video>
+    <div class="intro-text">A | V</div>
+</div>
+
+<audio id="music" src="music.mp3"></audio>
+
+<!-- ===== САЙТ ===== -->
+<div id="content">
+
+<div class="section"><img src="Photo1.PNG"></div>
+<div class="section"><img src="Photo2.PNG"></div>
+<div class="section"><img src="Photo3.PNG"></div>
+
+<div class="section"><img src="Photo4.PNG"></div>
+
+<!-- ГАЛЕРЕЯ -->
+<div class="section">
+    <div class="gallery">
+        <img src="P1.JPG">
+        <img src="P2.JPG">
+        <img src="P3.JPG">
+        <img src="P4.JPG">
+    </div>
+</div>
+
+<div class="section"><img src="Photo5.PNG"></div>
+
+<!-- ТАЙМЕР -->
+<div class="section">
+    <img src="Hand.jpg">
+    <div class="timer" id="timer"></div>
+</div>
+
+<!-- АНКЕТА -->
+<div class="section">
+    <h2>Анкета гостя</h2>
+
+    <form id="form">
+        <input type="text" id="name" placeholder="Имя">
+
+        <select id="status">
+            <option value="Да">Буду</option>
+            <option value="Нет">Не буду</option>
+        </select>
+
+        <input type="number" id="count" placeholder="Количество">
+
+        <button type="submit">Отправить</button>
+    </form>
+
+    <p id="result"></p>
+
+    <a class="telegram-btn" href="https://t.me/+s59jP9LBAQQzNmE6" target="_blank">
+        Перейти в Telegram
+    </a>
+</div>
+
+</div>
+
+<script>
+
+/* ===== СТАРТ ===== */
+const intro = document.getElementById('intro');
+const music = document.getElementById('music');
+
+intro.addEventListener('click', () => {
+    intro.classList.add('fade-out');
+    music.play();
+    setTimeout(() => intro.style.display = 'none', 1200);
+});
+
+/* ===== СКРОЛЛ АНИМАЦИЯ ===== */
+const sections = document.querySelectorAll('.section');
+
+window.addEventListener('scroll', () => {
+    sections.forEach(sec => {
+        const top = sec.getBoundingClientRect().top;
+        if(top < window.innerHeight - 100){
+            sec.classList.add('show');
+        }
+    });
+});
+
+/* ===== ТАЙМЕР ===== */
+const weddingDate = new Date("May 23, 2026 11:00:00").getTime();
+
+setInterval(() => {
+    const now = new Date().getTime();
+    const diff = weddingDate - now;
+
+    const d = Math.floor(diff / (1000*60*60*24));
+    const h = Math.floor((diff / (1000*60*60)) % 24);
+    const m = Math.floor((diff / (1000*60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("timer").innerHTML =
+        `${d} дн ${h} ч ${m} мин ${s} сек`;
+}, 1000);
+
+/* ===== TELEGRAM ===== */
+document.getElementById("form").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let name = document.getElementById("name").value;
+    let status = document.getElementById("status").value;
+    let count = document.getElementById("count").value;
+
+    let message = `
+Новая анкета
+
+Имя: ${name}
+Будет: ${status}
+Количество: ${count}
+`;
+
+    let token = "8516218775:AAFz39TECTa2LTRbWymgGjWJ6nu5n308VXM";
+    let chat_id = "1808023543";
+
+    fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            chat_id: chat_id,
+            text: message
+        })
+    }).then(() => {
+        document.getElementById("result").innerHTML = "Спасибо за ваш ответ 💛";
+    });
+});
+
+</script>
+
+</body>
+</html>
