@@ -90,13 +90,26 @@ img {
 .hand img {
   width: 100%;
 }
+.timer-text {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  font-size: 18px;
+  font-family: serif;
+  color: black;
+
+  text-align: center;
+  width: 80%;
+}
 
 /* ТАЙМЕР */
 .timer {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%,40%);
   display: flex;
   gap: 15px;
   font-size: 24px;
@@ -157,7 +170,30 @@ button {
 <div class="hand">
   <img src="Hand.jpg">
   <div class="timer" id="timer"></div>
+</div> 
+<div class="hand">
+  <img src="Hand.jpg">
+
+  <div class="timer-text">
+    До того, как мы станем семьей, осталось…
+  </div>
+
+  <div class="timer" id="timer"></div>
 </div>
+/* ТАЙМЕР */
+let end = new Date("May 23, 2026 11:00:00").getTime();
+
+setInterval(()=>{
+  let now = new Date().getTime();
+  let d = Math.floor((end-now)/(1000*60*60*24));
+  let h = Math.floor((end-now)/(1000*60*60)%24);
+  let m = Math.floor((end-now)/(1000*60)%60);
+  let s = Math.floor((end-now)/1000%60);
+
+  document.getElementById("timer").innerHTML =
+  `${d} | ${h} | ${m} | ${s}`;
+},1000);
+
 
 <!-- АНКЕТА -->
 <div class="section">
@@ -187,20 +223,6 @@ document.getElementById("hero").onclick = () => {
   music.currentTime = 11;
   music.play();
 }
-
-/* ТАЙМЕР */
-let end = new Date("May 23, 2026 11:00:00").getTime();
-
-setInterval(()=>{
-  let now = new Date().getTime();
-  let d = Math.floor((end-now)/(1000*60*60*24));
-  let h = Math.floor((end-now)/(1000*60*60)%24);
-  let m = Math.floor((end-now)/(1000*60)%60);
-  let s = Math.floor((end-now)/1000%60);
-
-  document.getElementById("timer").innerHTML =
-  `${d} | ${h} | ${m} | ${s}`;
-},1000);
 
 /* TELEGRAM */
 function send(){
