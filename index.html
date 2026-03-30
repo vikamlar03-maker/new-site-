@@ -113,7 +113,6 @@ img }
   display: flex;
   gap: 15px;
   font-size: 24px;
-}
 
 /* АНКЕТА */
 input {
@@ -180,20 +179,6 @@ button {
 
   <div class="timer" id="timer"></div>
 </div>
-/* ТАЙМЕР */
-let end = new Date("May 23, 2026 11:00:00").getTime();
-
-setInterval(()=>{
-  let now = new Date().getTime();
-  let d = Math.floor((end-now)/(1000*60*60*24));
-  let h = Math.floor((end-now)/(1000*60*60)%24);
-  let m = Math.floor((end-now)/(1000*60)%60);
-  let s = Math.floor((end-now)/1000%60);
-
-  document.getElementById("timer").innerHTML =
-  `${d} | ${h} | ${m} | ${s}`;
-},1000);
-
 
 <!-- АНКЕТА -->
 <div class="section">
@@ -223,7 +208,19 @@ document.getElementById("hero").onclick = () => {
   music.currentTime = 11;
   music.play();
 }
+/* ТАЙМЕР */
+let end = new Date("May 23, 2026 11:00:00").getTime();
 
+setInterval(()=>{
+  let now = new Date().getTime();
+  let d = Math.floor((end-now)/(1000*60*60*24));
+  let h = Math.floor((end-now)/(1000*60*60)%24);
+  let m = Math.floor((end-now)/(1000*60)%60);
+  let s = Math.floor((end-now)/1000%60);
+
+  document.getElementById("timer").innerHTML =
+  `${d} | ${h} | ${m} | ${s}`;
+},1000);
 /* TELEGRAM */
 function send(){
 fetch(`https://api.telegram.org/bot8516218775:AAFz39TECTa2LTRbWymgGjWJ6nu5n308VXM/sendMessage`,{
