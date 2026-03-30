@@ -21,6 +21,20 @@ body {
   height: 100vh;
   overflow: hidden;
 }
+.hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 /* ВИДЕО В HERO */
 .hero video {
@@ -51,8 +65,9 @@ body {
 }
 
 /* СЕКЦИИ */
-.section {
-  padding: 25px 15px;
+..section {
+  padding: 10px 10px;
+}
   text-align: center;
 }
 
@@ -62,8 +77,10 @@ body {
   overflow-x: auto;
   gap: 10px;
 }
-.gallery img {
-  width: 70%;
+img {
+  width: 100%;
+  display: block;
+}
 }
 
 /* HAND */
@@ -106,9 +123,9 @@ button {
 <!-- 🎬 ПЕРВЫЙ ЭКРАН -->
 <section class="hero" id="hero">
 
-  <video autoplay muted loop playsinline>
-    <source src="fabric.mov" type="video/mp4">
-  </video>
+  <video autoplay muted loop playsinline webkit-playsinline preload="auto">
+  <source src="fabric.mov" type="video/mp4">
+</video>
 
   <div class="center">
     <div class="logo">A | V</div>
