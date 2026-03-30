@@ -34,7 +34,16 @@
       position: relative;
       z-index: 1;
     }
+.fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s ease;
+}
 
+.fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
     /* ===== ПЕРВЫЙ ЭКРАН ===== */
     .intro {
       position: fixed;
@@ -377,19 +386,19 @@
   <!-- САЙТ -->
   <div class="site">
 
-    <section class="section narrow">
+    <section class="section fade">
       <img class="full" src="Photo1.jpg" alt="">
     </section>
 
-    <section class="section narrow">
+   <section class="section fade">
       <img class="full" src="Photo2.jpg" alt="">
     </section>
 
-    <section class="section narrow">
+    <section class="section fade">
       <img class="full" src="Photo3.PNG" alt="">
     </section>
 
-    <section class="section narrow">
+   <section class="section fade">
       <img class="full" src="Photo4.PNG" alt="">
     </section>
 
@@ -403,7 +412,7 @@
       </div>
     </section>
 
-    <section class="section narrow">
+    <section class="section fade">
       <img class="full" src="Photo5.jpg" alt="">
     </section>
 
@@ -547,6 +556,17 @@
         submitNote.textContent = 'Не удалось отправить ответ';
       }
     });
+    const faders = document.querySelectorAll('.fade');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+    }
+  });
+});
+
+faders.forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
