@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding</title>
+
+<!-- Шрифты -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    background: #FFFCF6;
+    overflow-x: hidden;
+}
+
+section {
+    padding: 80px 20px;
+    text-align: center;
+    position: relative;
+}
+
+/* ---------- ПЕРВЫЙ ЭКРАН ---------- */
+#intro {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.intro-text {
+    font-size: 60px;
+}
+
+.quote {
+    margin-top: 20px;
+    font-size: 14px;
+    max-width: 300px;
+}
+
+.fade-out {
+    animation: fadeOut 1.2s forwards;
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; transform: scale(1.05); }
+}
+
+/* ---------- ВИДЕО ---------- */
+#videoSection {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+}
+
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ---------- ТКАНЬ ---------- */
+.fabric {
+    position: absolute;
+    width: 250px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: wave 6s ease-in-out infinite;
+    opacity: 0.7;
+}
+
+@keyframes wave {
+    0% { transform: translateX(-50%) rotate(0deg); }
+    50% { transform: translateX(-48%) rotate(2deg); }
+    100% { transform: translateX(-50%) rotate(0deg); }
+}
+
+/* ---------- АНИМАЦИЯ ТЕКСТА ---------- */
+.fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 1s;
+}
+
+.fade-up.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---------- ТАЙМЕР ---------- */
+.timer {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    font-size: 28px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* ---------- ГАЛЕРЕЯ ---------- */
+.gallery {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding: 20px;
+}
+
+.gallery img {
+    width: 250px;
+    border-radius: 20px;
+}
+
+/* ---------- КНОПКА ---------- */
+.button {
+    background: #2d4f73;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 30px;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+/* ---------- ФОРМА ---------- */
+input {
+    width: 80%;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎬 Видео фон -->
+<div id="videoSection">
+    <video autoplay muted loop playsinline>
+        <source src="fabric.mp4" type="video/mp4">
+    </video>
+</div>
+
+<!-- 🎵 Музыка -->
+<audio id="music" src="music.mp3"></audio>
+
+<!-- ---------- ПЕРВЫЙ ЭКРАН ---------- -->
+<section id="intro">
+    <div class="intro-text">A | V</div>
+    <div class="quote">
+        «Так что они уже не двое, но одна плоть...»
+    </div>
+</section>
+
+<!-- ---------- БЛОК 1 ---------- -->
+<section class="fade-up">
+    <img src="Photo1.jpg" width="80%">
+</section>
+
+<section class="fade-up">
+    <img src="Photo2.jpg" width="80%">
+</section>
+
+<section class="fade-up">
+    <img src="Photo3.PNG" width="80%">
+</section>
+
+<section class="fade-up">
+    <img src="Photo4.PNG" width="80%">
+</section>
+
+<!-- ---------- ГАЛЕРЕЯ ---------- -->
+<section class="fade-up">
+    <div class="gallery">
+        <img src="P1.JPG">
+        <img src="P2.JPG">
+        <img src="P3.JPG">
+        <img src="P4.JPG">
+    </div>
+</section>
+
+<!-- ---------- ТАЙМЕР ---------- -->
+<section class="fade-up" style="position:relative;">
+    <img src="Hand.jpg" width="100%">
+    <div class="timer" id="timer"></div>
+</section>
+
+<!-- ---------- ПОСЛЕДНИЙ БЛОК ---------- -->
+<section class="fade-up">
+    <img src="Photo5.jpg" width="80%">
+</section>
+
+<!-- ---------- АНКЕТА ---------- -->
+<section class="fade-up">
+    <h2>Анкета гостя</h2>
+
+    <input placeholder="Имя">
+
+    <div>
+        <label><input type="radio" name="yes"> Да</label>
+        <label><input type="radio" name="yes"> Нет</label>
+    </div>
+
+    <input placeholder="Количество">
+
+    <div class="button" onclick="send()">Отправить</div>
+
+    <p onclick="window.open('https://t.me/+s59jP9LBAQQzNmE6')">
+        Перейти в Telegram
+    </p>
+</section>
+
+<script>
+
+// 🎬 УБРАТЬ ЭКРАН + ЗАПУСТИТЬ МУЗЫКУ
+document.getElementById("intro").onclick = () => {
+    document.getElementById("intro").classList.add("fade-out");
+
+    let music = document.getElementById("music");
+    music.currentTime = 11;
+    music.play();
+}
+
+// ✨ АНИМАЦИЯ СКРОЛЛА
+const elements = document.querySelectorAll('.fade-up');
+
+window.addEventListener('scroll', () => {
+    elements.forEach(el => {
+        const top = el.getBoundingClientRect().top;
+        if (top < window.innerHeight - 100) {
+            el.classList.add('show');
+        }
+    });
+});
+
+// ⏳ ТАЙМЕР
+const endDate = new Date("May 23, 2026 11:00:00").getTime();
+
+setInterval(() => {
+    let now = new Date().getTime();
+    let diff = endDate - now;
+
+    let d = Math.floor(diff / (1000*60*60*24));
+    let h = Math.floor((diff / (1000*60*60)) % 24);
+    let m = Math.floor((diff / (1000*60)) % 60);
+    let s = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("timer").innerHTML =
+        `${d} | ${h} | ${m} | ${s}`;
+}, 1000);
+
+// 📩 TELEGRAM
+function send() {
+    fetch(`https://api.telegram.org/bot8516218775:AAFz39TECTa2LTRbWymgGjWJ6nu5n308VXM/sendMessage`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            chat_id: "1808023543",
+            text: "Новый гость ответил!"
+        })
+    });
+
+    alert("Спасибо за ваш ответ 💛");
+}
+
+</script>
+
+</body>
+</html>
